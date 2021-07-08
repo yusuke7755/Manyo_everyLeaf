@@ -11,18 +11,20 @@ class User < ApplicationRecord
   # attr_accessor :current_admin
 
   def ensure_admin_deatroy
-    throw(:abort) if User.where(admin: true).count == 1 && self.admin == true
+    if User.where(admin: true).count == 1 && self.admin == true
+      errors.add(:admin,"がいなくなるので削除できません。")
+      throw(:abort) 
+    end
   end
 
   def ensure_admin_update
      #binding.pry
      #アドミンユーザーを取得
     @admin_user = User.where(admin: true)
-    #(adminのカウントが１かつ　adminの配列の一人目がいない) && adminの値が入っていない　
+    #(adminのカウントが１かつ　adminの配列の一人目がいない adminがユーザー自身) && adminの値が入っていない　
     if (@admin_user.count == 1 && @admin_user.first == self) && !(self.admin)
       errors.add(:admin,"は、最低でも１人は必要です。")
       throw(:abort)
-
     end
  
   end
