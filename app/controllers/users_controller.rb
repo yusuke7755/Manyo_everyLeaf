@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user.current_admin = current_user.admin
     if @user.update(user_params)
       redirect_to user_path, notice: "ユーザー情報を変更しました。"
     else
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email,:password, :password_confirmation)
+    params.require(:user).permit(:name, :email,:password, :password_confirmation, :admin)
   end
 
   def set_user

@@ -20,7 +20,10 @@
   <p><%= f.password_field :password %></p>
   <p><%= f.label :password_confirmation %></p>
   <p><%= f.password_field :password_confirmation %></p>
-
+    <div class="user_list">
+      <p><%= f.label :管理者権限 %></p>
+      <p><%= f.check_box :admin %></p>
+    </div>
   <p><%= f.submit "アカウント作成" %></p>
   
 <% end %>
